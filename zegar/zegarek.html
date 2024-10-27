@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zegarek</title>
+</head>
+<body>
+    
+    <style>
+        #zegar{
+            width: 500px;
+            height: 500px;
+            margin: 100px auto;
+            position: relative;
+        }
+        #zegar img{
+            position: absolute;
+        }
+        #cyfrowy{
+            position: absolute;
+            width: 200px;
+            left: 150px;
+            top: 300px;
+            border: 1px solid black;
+            text-align: center;
+            font-size: 30px;
+        }
+    </style>
+    <div id="zegar">
+        <img id="tarcza" src="tarcza.jpg">
+        <div id="cyfrowy"></div>
+        <img id="godzina" src="godzina.png">
+        <img id="minuta" src="minuta.png">
+        <img id="sekunda" src="sekunda.png">
+    </div>
+    
+    <script>
+        var godz = document.getElementById("godzina");
+        var min = document.getElementById("minuta");
+        var sek = document.getElementById("sekunda");
+        var cyfrowy = document.getElementById("cyfrowy");
+
+        function czas(){
+            let data = new Date();
+            let godzina=data.getHours();
+            let minuta=data.getMinutes();
+            let sekunda=data.getSeconds();
+
+            let stopienG = godzina*30 + minuta *0.5;
+            let stopienM = minuta*6 + sekunda *0.1;
+            let stopienS = sekunda*6;
+
+            godz.style.transform="rotate("+stopienG+"deg)";
+            min.style.transform="rotate("+stopienM+"deg)";
+            sek.style.transform="rotate("+stopienS+"deg)";
+
+            if(sekunda<10) sekunda="0"+sekunda;
+            if(minuta<10) minuta="0"+minuta;
+            if(godzina<10) godzina="0"+godzina;
+
+            cyfrowy.innerHTML = godzina + ":" + minuta + ":" + sekunda;
+
+            setTimeout(czas, 1000);
+        }
+        czas();
+    </script>
+
+</body>
+</html>
